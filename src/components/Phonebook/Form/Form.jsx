@@ -2,6 +2,8 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { FormikWrap, FormWrap, ButForm, FormTitel } from './Form.styles';
 
 import * as Yup from 'yup';
+import { useDispatch, useSelector } from 'react-redux';
+import { addContact } from 'components/redux/contactSlice';
 const validationSchema = Yup.object({
   name: Yup.string()
     .matches(
@@ -20,12 +22,28 @@ const validationSchema = Yup.object({
   contacts: Yup.array(),
 });
 
-export const Forms = ({ submitContact }) => {
+export const Forms = () => {
+  const dispatch = useDispatch();
+  const contact = useSelector(state => state.contact);
+  const onSubmit = ({ name, number }) => {
+    if (
+      contact.find(
+        contact => contact.number === number || contact.name === name
+      )
+    ) {
+      <div>Sorii contacts</div>;
+    }
+    const newContacts = { name, number };
+    dispatch(addContact(newContacts));
+  };
   return (
     <FormikWrap>
       <Formik
         validationSchema={validationSchema}
-        onSubmit={submitContact}
+        onSubmit={(value, actions) => {
+          onSubmit(value);
+          actions.resetForm();
+        }}
         initialValues={{
           name: '',
           number: '',
