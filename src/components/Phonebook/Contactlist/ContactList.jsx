@@ -10,6 +10,7 @@ export const ContactList = () => {
   const filterContacts = contacts.filter(contact =>
     contact.name.toLowerCase().includes(filter.toLowerCase())
   );
+
   const onDelete = user => {
     dispatch(deleteContact(user));
   };

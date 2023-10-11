@@ -24,18 +24,10 @@ const contactsSlice = createSlice({
       },
     },
     deleteContact(state, action) {
-      const index = state.findIndex(contacts => contacts.id === action.payload);
+      const index = state.findIndex(contact => contact.id === action.payload);
       state.splice(index, 1);
-    },
-    toggleCompleted(state, action) {
-      for (const contacts of state) {
-        if (contacts.id === action.payload) {
-          contacts.completed = !contacts.completed;
-        }
-      }
     },
   },
 });
-export const { addContact, deleteContact, toggleCompleted } =
-  contactsSlice.actions;
-export const { contactsReducer } = contactsSlice.reducer;
+export const { addContact, deleteContact } = contactsSlice.actions;
+export const contactsReducer = contactsSlice.reducer;

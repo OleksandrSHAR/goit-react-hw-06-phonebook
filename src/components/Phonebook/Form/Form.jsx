@@ -4,6 +4,7 @@ import { FormikWrap, FormWrap, ButForm, FormTitel } from './Form.styles';
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from 'components/redux/contactSlice';
+import { getContacts } from 'components/redux/selectors';
 const validationSchema = Yup.object({
   name: Yup.string()
     .matches(
@@ -24,7 +25,7 @@ const validationSchema = Yup.object({
 
 export const Forms = () => {
   const dispatch = useDispatch();
-  const contact = useSelector(state => state.contact);
+  const contact = useSelector(getContacts);
   const onSubmit = ({ name, number }) => {
     if (
       contact.find(
@@ -36,6 +37,7 @@ export const Forms = () => {
     const newContacts = { name, number };
     dispatch(addContact(newContacts));
   };
+
   return (
     <FormikWrap>
       <Formik
