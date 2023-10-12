@@ -1,6 +1,6 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { FormikWrap, FormWrap, ButForm, FormTitel } from './Form.styles';
-
+import toast from 'react-hot-toast';
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from 'components/redux/contactSlice';
@@ -32,7 +32,8 @@ export const Forms = () => {
         contact => contact.number === number || contact.name === name
       )
     ) {
-      <div>Sorii contacts</div>;
+      toast.error("This didn't work.");
+      return;
     }
     const newContacts = { name, number };
     dispatch(addContact(newContacts));
